@@ -1,0 +1,110 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Enemy/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://Enemy/playerShip1_red.png" type="Texture" id=2]
+[ext_resource path="res://Enemy/playerShip2_red.png" type="Texture" id=3]
+[ext_resource path="res://Enemy/playerShip3_red.png" type="Texture" id=4]
+[ext_resource path="res://Bullet/Bullet.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Enemy/HealthBar/health_under.png" type="Texture" id=6]
+[ext_resource path="res://Enemy/HealthBar/health_progress.png" type="Texture" id=7]
+[ext_resource path="res://Enemy/ufoBlue.png" type="Texture" id=8]
+[ext_resource path="res://Enemy/playerShip2_green.png" type="Texture" id=9]
+[ext_resource path="res://Enemy/playerShip2_orange.png" type="Texture" id=10]
+[ext_resource path="res://Font/Xolonium-Regular.ttf" type="DynamicFontData" id=11]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "random3",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "random1",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "random5",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "random2",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "random4",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "random6",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 25.02
+
+[sub_resource type="DynamicFont" id=3]
+size = 30
+font_data = ExtResource( 11 )
+
+[node name="Enemy" type="Area2D" groups=["enemies"]]
+script = ExtResource( 1 )
+bullet_scene = ExtResource( 5 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.6, 0.6 )
+frames = SubResource( 1 )
+animation = "random3"
+flip_v = true
+
+[node name="GunPosition" type="Position2D" parent="."]
+position = Vector2( 0, 28 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -5.96046e-08, -4 )
+scale = Vector2( 2.2, 1.8 )
+
+[node name="ShootTimer" type="Timer" parent="."]
+
+[node name="HealthBar" type="TextureProgress" parent="."]
+margin_left = -20.0
+margin_top = -33.0
+margin_right = 20.0
+margin_bottom = -28.0
+value = 100.0
+texture_under = ExtResource( 6 )
+texture_progress = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+disabled = true
+
+[node name="PenaltyLabel" type="Label" parent="."]
+margin_left = -25.0
+margin_top = -80.0
+margin_right = 25.0
+margin_bottom = -40.0
+custom_fonts/font = SubResource( 3 )
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelfDeleteTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_Enemy_body_entered"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
+[connection signal="timeout" from="SelfDeleteTimer" to="." method="_on_SelfDeleteTimer_timeout"]

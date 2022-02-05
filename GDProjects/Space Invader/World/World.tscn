@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://World/World.gd" type="Script" id=1]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Enemy/Enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Backgrounds/darkPurple.png" type="Texture" id=4]
+[ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 350 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 350 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 540, 10 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 540, 10 )
+
+[node name="World" type="Node2D"]
+script = ExtResource( 1 )
+enemy_scene = ExtResource( 3 )
+
+[node name="Background" type="Sprite" parent="."]
+texture = ExtResource( 4 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1080, 700 )
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+position = Vector2( -10, 350 )
+shape = SubResource( 1 )
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+position = Vector2( 1090, 350 )
+shape = SubResource( 2 )
+
+[node name="Ceiling" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling"]
+position = Vector2( 540, -10 )
+shape = SubResource( 3 )
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2( 540, 710 )
+shape = SubResource( 4 )
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="PlayerStartPosition" type="Position2D" parent="."]
+position = Vector2( 540, 640 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+visible = false
+position = Vector2( 540, 640 )
+
+[node name="HUD" parent="." instance=ExtResource( 5 )]
+
+[node name="ScoreTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_EnemySpawnTimer_timeout"]
+[connection signal="dead" from="Player" to="." method="_on_Player_dead"]
+[connection signal="start_game" from="HUD" to="." method="start_game"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]

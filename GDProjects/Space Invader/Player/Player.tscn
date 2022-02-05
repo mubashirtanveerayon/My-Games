@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Player/ship_tilt_right.png" type="Texture" id=1]
+[ext_resource path="res://Player/ship_tilt_left.png" type="Texture" id=2]
+[ext_resource path="res://Player/ship_default.png" type="Texture" id=3]
+[ext_resource path="res://Player/Player.gd" type="Script" id=4]
+[ext_resource path="res://Player/health_under.png" type="Texture" id=5]
+[ext_resource path="res://Player/health_progress.png" type="Texture" id=6]
+[ext_resource path="res://Bullet/Bullet.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Player/shoot.wav" type="AudioStream" id=8]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "tilt_left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "tilt_right",
+"speed": 5.0
+} ]
+
+[node name="Player" type="KinematicBody2D"]
+scale = Vector2( 0.4, 0.4 )
+script = ExtResource( 4 )
+bullet_scene = ExtResource( 7 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+
+[node name="HealthBar" type="TextureProgress" parent="."]
+margin_left = -150.0
+margin_top = 100.0
+margin_right = 150.0
+margin_bottom = 120.0
+value = 100.0
+texture_under = ExtResource( 5 )
+texture_progress = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 0, -95, -37.5, -15, -97.5, -15, -97.5, -55, -130, -55, -130, 10, -167.5, 72.5, -32.5, 72.5, -32.5, 120, 35, 120, 35, 72.5, 167.5, 72.5, 135, 10, 132.5, -55, 100, -55, 100, -12.5, 37.5, -12.5 )
+
+[node name="LeftGunPosition" type="Position2D" parent="."]
+position = Vector2( -115, -55 )
+
+[node name="RightGunPosition" type="Position2D" parent="."]
+position = Vector2( 117, -55 )
+
+[node name="LeftGunCooldownTimer" type="Timer" parent="."]
+wait_time = 0.15
+
+[node name="RightGunCooldownTimer" type="Timer" parent="."]
+wait_time = 0.15
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )
+volume_db = -11.143
+
+[connection signal="timeout" from="LeftGunCooldownTimer" to="." method="_on_LeftGunCooldownTimer_timeout"]
+[connection signal="timeout" from="RightGunCooldownTimer" to="." method="_on_RightGunCooldownTimer_timeout"]
