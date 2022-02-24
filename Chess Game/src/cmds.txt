@@ -1,0 +1,2 @@
+compile
+javac -cp lib/Schneizel_v1.0.jar gui_components/Square.java ui/Window.java ui/GamePanel.java ui/ChoiceWindow.java listener/Sound.java listener/GameListener.java resourceLoader/ResourceLoader.java values/Parameter.java game/Main.java
