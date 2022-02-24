@@ -119,6 +119,8 @@ public class GameListener implements ActionListener {
             }else{
                 JOptionPane.showMessageDialog(null, "Black wins");
             }
+        }else{
+            gamePanel.enableBoard();
         }
     }
 
@@ -204,6 +206,16 @@ public class GameListener implements ActionListener {
                 if (input != null && !input.isEmpty() && Character.isDigit(input.charAt(0)) && Integer.parseInt(Character.toString(input.charAt(0))) >= 0) {
                     engine.setDifficulty(Integer.parseInt(Character.toString(input.charAt(0))));
                     JOptionPane.showMessageDialog(null, "Difficulty is set to " + String.valueOf(engine.getDifficulty()), "Success", 1);
+                }
+            }else if (src == window.undo){
+                if(engine.history.size() >= 2) {
+                    engine = new Schneizel(engine.history.get(engine.history.size() - 2));
+                    board = engine.getBoard();
+                    selected = null;
+                    renderBoard();
+                    if((Parameter.HUMAN_CHOSE_WHITE&&engine.getTurn()=='b') || (!Parameter.HUMAN_CHOSE_WHITE&&engine.getTurn()=='w')){
+                        computer().start();
+                    }
                 }
             }
         }else{

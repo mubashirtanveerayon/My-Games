@@ -8,16 +8,16 @@ import java.net.URL;
 
 public class Parameter {
 
-    public static final URL[] ALLIANCE_CHOOSE_IMAGE_PATH = new URL[]{ResourceLoader.load("assets" + File.separator + "white" + File.separator + "pawn.png"), ResourceLoader.load("assets" + File.separator + "black" + File.separator + "pawn.png")};
+    public static final String[] ALLIANCE_CHOOSE_IMAGE_PATH = {("assets" + File.separator + "white" + File.separator + "pawn.png"), ("assets" + File.separator + "black" + File.separator + "pawn.png")};
 
 
-     public static final URL[] ALLIANCE_PROMOTION_CHOICE_WHITE_IMAGE_PATH = new URL[]{ResourceLoader.load("assets" + File.separator + "white" + File.separator + "night.png"), ResourceLoader.load("assets" + File.separator + "white" + File.separator + "bishop.png"), ResourceLoader.load("assets" + File.separator + "white" + File.separator + "rook.png"),ResourceLoader.load("assets" + File.separator + "white" + File.separator + "queen.png")};
-    public static final URL[] ALLIANCE_PROMOTION_CHOICE_BLACK_IMAGE_PATH = new URL[]{ResourceLoader.load("assets" + File.separator + "black" + File.separator + "night.png"), ResourceLoader.load("assets" + File.separator + "black" + File.separator + "bishop.png"), ResourceLoader.load("assets" + File.separator + "black" + File.separator + "rook.png"),ResourceLoader.load("assets" + File.separator + "black" + File.separator + "queen.png")};
+     public static final String[] ALLIANCE_PROMOTION_CHOICE_WHITE_IMAGE_PATH = {("assets" + File.separator + "white" + File.separator + "night.png"), ("assets" + File.separator + "white" + File.separator + "bishop.png"), ("assets" + File.separator + "white" + File.separator + "rook.png"),("assets" + File.separator + "white" + File.separator + "queen.png")};
+    public static final String[] ALLIANCE_PROMOTION_CHOICE_BLACK_IMAGE_PATH = {("assets" + File.separator + "black" + File.separator + "night.png"), ("assets" + File.separator + "black" + File.separator + "bishop.png"), ("assets" + File.separator + "black" + File.separator + "rook.png"),("assets" + File.separator + "black" + File.separator + "queen.png")};
 
-    public static final URL[] WHITE_IMAGE_PATH = new URL[]{ResourceLoader.load("assets" + File.separator + "white" + File.separator + "night.png"), ResourceLoader.load("assets" + File.separator + "white" + File.separator + "bishop.png"), ResourceLoader.load("assets" + File.separator + "white" + File.separator + "rook.png"),ResourceLoader.load("assets" + File.separator + "white" + File.separator + "queen.png"),ResourceLoader.load("assets" + File.separator + "white" + File.separator + "pawn.png"),ResourceLoader.load("assets" + File.separator + "white" + File.separator + "king.png")};
-    public static final URL[] BLACK_IMAGE_PATH = new URL[]{ResourceLoader.load("assets" + File.separator + "black" + File.separator + "night.png"), ResourceLoader.load("assets" + File.separator + "black" + File.separator + "bishop.png"), ResourceLoader.load("assets" + File.separator + "black" + File.separator + "rook.png"),ResourceLoader.load("assets" + File.separator + "black" + File.separator + "queen.png"),ResourceLoader.load("assets" + File.separator + "black" + File.separator + "pawn.png"),ResourceLoader.load("assets" + File.separator + "black" + File.separator + "king.png")};
+    public static final String[] WHITE_IMAGE_PATH = {("assets" + File.separator + "white" + File.separator + "night.png"), ("assets" + File.separator + "white" + File.separator + "bishop.png"), ("assets" + File.separator + "white" + File.separator + "rook.png"),("assets" + File.separator + "white" + File.separator + "queen.png"),("assets" + File.separator + "white" + File.separator + "pawn.png"),("assets" + File.separator + "white" + File.separator + "king.png")};
+    public static final String[] BLACK_IMAGE_PATH = {("assets" + File.separator + "black" + File.separator + "night.png"), ("assets" + File.separator + "black" + File.separator + "bishop.png"), ("assets" + File.separator + "black" + File.separator + "rook.png"),("assets" + File.separator + "black" + File.separator + "queen.png"),("assets" + File.separator + "black" + File.separator + "pawn.png"),("assets" + File.separator + "black" + File.separator + "king.png")};
 
-    public static final URL[] SOUND_PATH = new URL[]{ResourceLoader.load("assets" + File.separator + "audio" + File.separator + "move.wav"), ResourceLoader.load("assets" + File.separator + "audio" + File.separator + "cap.wav")};
+    public static final String[] SOUND_PATH = {("assets" + File.separator + "audio" + File.separator + "move.wav"), ("assets" + File.separator + "audio" + File.separator + "cap.wav")};
 
     public static boolean HUMAN_CHOSE_WHITE = false;
     
@@ -31,8 +31,8 @@ public class Parameter {
     
     public static boolean FLIP = false;
 
-    public static URL getPath(char piece) {
-        URL[] paths;
+    public static String getPath(char piece) {
+        String[] paths;
         if (isUpperCase(piece)) {
             paths = WHITE_IMAGE_PATH;
         } else {

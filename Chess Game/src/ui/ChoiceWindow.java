@@ -35,18 +35,18 @@ public class ChoiceWindow extends JFrame {
         add(panel,BorderLayout.CENTER);
     }
 
-    public void showChoices(String text, int fontSize, URL[] images, int hGap, int vGap, int width, int height, GameListener listener){
+    public void showChoices(String text, int fontSize, String[] imagePaths, int hGap, int vGap, int width, int height, GameListener listener){
         setSize(width,height);
         label.setText(text);
         label.setFont(new Font("Arial",Font.BOLD,fontSize));
         ((FlowLayout)panel.getLayout()).setHgap(hGap);
         ((FlowLayout)panel.getLayout()).setVgap(vGap);
         removeComponents();
-        buttons = new JButton[images.length];
+        buttons = new JButton[imagePaths.length];
         for(int i=0;i<buttons.length;i++){
             buttons[i] = new JButton();
             buttons[i].setFocusable(false);
-            buttons[i].setIcon(new ImageIcon(images[i]));
+            buttons[i].setIcon(new ImageIcon(imagePaths[i]));
             buttons[i].addActionListener(listener);
             panel.add(buttons[i]);
         }

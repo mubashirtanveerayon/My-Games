@@ -6,24 +6,24 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
-import java.net.URL;
+
 
 public class Sound {
 
     private AudioInputStream audioInputStream;
     private Clip clip;
 
-    private URL moveSound,captureSound;
+    private String moveSoundPath,captureSoundPath;
 
     public Sound(){
-        moveSound = Parameter.getPath('m');
-        captureSound = Parameter.getPath('c');
+        moveSoundPath = Parameter.getPath('m');
+        captureSoundPath = Parameter.getPath('c');
     }
 
     public Clip play(boolean isCapture){
-        URL sound = isCapture ?captureSound  : moveSound;
+        String soundPath = isCapture ?captureSoundPath  : moveSoundPath;
         try{
-            audioInputStream = AudioSystem.getAudioInputStream(sound);
+            audioInputStream = AudioSystem.getAudioInputStream(new File(soundPath));
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             if (clip.isRunning())
