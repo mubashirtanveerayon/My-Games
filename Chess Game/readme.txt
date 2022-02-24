@@ -1,4 +1,4 @@
 To run the game:
 open terminal in the src directory,
 enter the following command:
-java gmae.Main
+java game.Main
