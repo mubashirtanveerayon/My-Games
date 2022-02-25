@@ -30,11 +30,11 @@ public class GameListener implements ActionListener {
 
     int rowTo,colTo,promotionType = -1;
 
-    public GameListener(Window window, GamePanel gamePanel, Schneizel engne_) {
+    public GameListener(Window window, GamePanel gamePanel) {
         cw = new ChoiceWindow();
         this.window = window;
         this.gamePanel = gamePanel;
-        this.engine = engne_;
+        this.engine = new Schneizel();
         sound = new Sound();
         window.setVisible(false);
         choose();
@@ -134,9 +134,13 @@ public class GameListener implements ActionListener {
                 int[] bestMove = engine.getBestMove();
                 double elapsedTime = (System.nanoTime() - start)/1000000000;
                 System.out.println(side+" has chosen move "+engine.cvtMove(bestMove)+" in "+elapsedTime+" seconds");
-                sound.play(isCapture(bestMove));
-                engine.makeMove(engine.cvtMove(bestMove));
-                renderBoard();
+                String moveStr = engine.cvtMove(bestMove);
+                if(engine.isValidMove(moveStr)) {
+                    sound.play(isCapture(bestMove));
+                    engine.makeMove(engine.cvtMove(bestMove));
+                    renderBoard();
+                }
+
             }
         };
     }

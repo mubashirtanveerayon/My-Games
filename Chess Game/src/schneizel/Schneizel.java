@@ -69,18 +69,25 @@ public class Schneizel {
     public float evaluateBoard(){
         return engine.evaluateBoard(engine.whiteToMove);
     }
-    
-    public void makeMove(String movestr){
+
+    public boolean isValidMove(String moveStr){
         String legalMoves = getLegalMoves();
         for(String move:legalMoves.split("\n")){
-            if(move.equalsIgnoreCase(movestr)){
-                history.add(engine.fen);
-                int[] moveint = Util.parseMove(movestr);
-                engine.move(moveint);
-                moves.add(moveint);
-                return;
+            if(!moveStr.isEmpty()&&!move.isEmpty()&&move.equalsIgnoreCase(moveStr)){
+                return true;
             }
-        }       
+        }
+        return false;
+    }
+
+    public void makeMove(String movestr){
+        if(isValidMove(movestr)){
+            history.add(engine.fen);
+            int[] moveint = Util.parseMove(movestr);
+            engine.move(moveint);
+            moves.add(moveint);
+            return;
+        }
         System.out.println("Not a legal move!");
     }
     
