@@ -3,7 +3,6 @@ package gui_components;
 import values.Parameter;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
 
 public class Square extends JButton {
@@ -19,7 +18,7 @@ public class Square extends JButton {
         this.rank = rank;
         bgColor = (file + rank)%2!=0? Parameter.LIGHT_SQUARE_COLOR:Parameter.DARK_SQUARE_COLOR;
         setFocusable(false);
-        setBorder(new LineBorder(new Color(50,50,50)));
+        setBorder(BorderFactory.createRaisedBevelBorder());
         setBackground(bgColor);
     }
 
